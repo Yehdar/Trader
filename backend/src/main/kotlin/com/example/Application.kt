@@ -86,6 +86,22 @@ fun Application.module() {
         get("/api/trades") {
             call.respond(tradeLog)
         }
+
+        get("/api/price/{ticker}") {
+            val ticker = call.parameters["ticker"]?.uppercase()
+            if (ticker.isNullOrBlank()) {
+                call.respond(HttpStatusCode.BadRequest, "Ticker symbol is missing.")
+                return@get
+            }
+
+            // Simulate a price based on the ticker's hashCode
+            val simulatedPrice = "%.2f".format((ticker.hashCode() % 1000) / 10.0 + 100)
+            call.respondText("Price of $ticker is \$$simulatedPrice")
+        }
+
+        get("/api/server-time") {
+            call.respondText("Server time is ${getTime()}")
+        }
     }
 }
 
