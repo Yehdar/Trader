@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-function App() {
-  const [messages, setMessages] = useState([]);
+const App: React.FC = () => {
+  const [messages, setMessages] = useState<string[]>([]);
 
   const handleClick = async () => {
     try {
@@ -23,6 +23,6 @@ function App() {
       </ul>
     </div>
   );
-}
+};
 
 export default App;
